@@ -1,4 +1,4 @@
-export default class ball {
+export default class Ball {
   constructor(game) {
     this.image = document.getElementById("img_ball");
     this.speed = { x: 4, y: 4 };

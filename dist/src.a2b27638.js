@@ -246,11 +246,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ball =
+var Ball =
 /*#__PURE__*/
 function () {
-  function ball(game) {
-    _classCallCheck(this, ball);
+  function Ball(game) {
+    _classCallCheck(this, Ball);
 
     this.image = document.getElementById("img_ball");
     this.speed = {
@@ -266,7 +266,7 @@ function () {
     this.gameHeight = game.gameHeight;
   }
 
-  _createClass(ball, [{
+  _createClass(Ball, [{
     key: "draw",
     value: function draw(ctx) {
       ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
@@ -287,10 +287,10 @@ function () {
     }
   }]);
 
-  return ball;
+  return Ball;
 }();
 
-exports.default = ball;
+exports.default = Ball;
 },{}],"src/game.js":[function(require,module,exports) {
 "use strict";
 
@@ -320,27 +320,29 @@ function () {
     _classCallCheck(this, Game);
 
     this.gameWidth = gameWidth;
-    this.gameHeight = gameHeight; // this.paddle = new Paddle(this);
-    // this.ball = new Ball(this);
+    this.gameHeight = gameHeight;
   }
 
   _createClass(Game, [{
     key: "update",
     value: function update(dt) {
-      this.ball.update(dt);
-      this.paddle.update(dt);
+      this.gameObjects.forEach(function (gameItem) {
+        return gameItem.update(dt);
+      });
     }
   }, {
     key: "draw",
     value: function draw(ctx) {
-      this.ball.draw(ctx);
-      this.paddle.draw(ctx);
+      this.gameObjects.forEach(function (gameItem) {
+        return gameItem.draw(ctx);
+      });
     }
   }, {
     key: "start",
     value: function start() {
       this.paddle = new _paddle.default(this);
       this.ball = new _ball.default(this);
+      this.gameObjects = [this.ball, this.paddle];
       new _input.default(this.paddle);
     }
   }]);
@@ -402,7 +404,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64620" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64937" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
