@@ -22,7 +22,6 @@ export default class Ball {
   }
 
   update(dt) {
-    console.log(this.game.paddle.position.x);
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 
